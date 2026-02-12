@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Scorecard Full Width</title>
+    <title>NTA Scorecard No Padding Fluid</title>
     <style>
         /* --- Basic Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,10 +22,10 @@
 
         .full-width-container { 
             width: 100%; 
-            /* REMOVED max-width so it spreads across the full laptop screen */
             max-width: none; 
             margin: 0; 
-            padding: 0 25px; /* Keeps a small breathing room from edge */
+            /* PADDING REMOVED: Edge-to-edge widespread look */
+            padding: 0; 
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -38,6 +38,9 @@
             align-items: center;
             padding-top: 15px;
             padding-bottom: 15px;
+            /* Added small horizontal padding to banner content so logos aren't cut off */
+            padding-left: 10px;
+            padding-right: 10px;
             min-height: auto; 
             flex-wrap: nowrap; 
             width: 100%;
@@ -92,7 +95,11 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            border: 2px solid black;
+            /* Table borders will sit exactly on the screen edge */
+            border-left: none;
+            border-right: none;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
             table-layout: fixed; 
             margin-bottom: 5px;
         }
@@ -104,6 +111,10 @@
             vertical-align: middle;
             word-wrap: break-word; 
         }
+
+        /* Ensure first/last cells maintain border look */
+        td:first-child, th:first-child { border-left: 2px solid black; }
+        td:last-child, th:last-child { border-right: 2px solid black; }
 
         th { font-weight: bold; background-color: #fff; }
 
@@ -150,7 +161,7 @@
             font-style: italic;
             margin-top: 2px;
             margin-bottom: 2px;
-            padding: 0 2px;
+            padding: 0 10px; /* Small padding so text doesn't touch screen edge */
         }
 
         /* --- Table 2 Specifics --- */
@@ -165,6 +176,7 @@
         /* --- Footer Section --- */
         .footer-section { 
             margin-top: 15px; 
+            padding: 0 10px; /* Padding for footer text only */
             margin-bottom: 300px; 
             color: #000; 
             flex-grow: 1; 
@@ -217,23 +229,6 @@
             padding: 20px;
             line-height: 1.4;
             min-height: 80px;
-        }
-
-        /* --- PHONE SPECIFIC OPTIMIZATIONS --- */
-        @media only screen and (max-width: 768px) {
-            .full-width-container {
-                /* DRASTICALLY REDUCED PADDING: Maximizes space on phone */
-                padding: 0 2px; 
-            }
-
-            .banner {
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
-
-            .banner-center {
-                padding: 0 2px;
-            }
         }
     </style>
 </head>
