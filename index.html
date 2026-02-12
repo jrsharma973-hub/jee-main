@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Scorecard 2026</title>
+    <title>NTA Scorecard Phone Friendly</title>
     <style>
         /* --- Basic Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,10 +11,9 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #ffffff;
-            /* INCREASED FONT SIZE */
-            font-size: 16px; 
+            font-size: 14px; 
             color: #000;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevents horizontal scroll on the body */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -30,6 +29,7 @@
             padding-top: 25px;
             padding-bottom: 20px;
             height: 130px; 
+            transition: height 0.3s; /* Smooth transition for resizing */
         }
 
         .banner-left, .banner-right {
@@ -40,7 +40,7 @@
         }
         
         .banner-image-fit {
-            max-height: 95px; /* Increased slightly for scaling */
+            max-height: 85px; 
             width: auto;      
             display: block;
             background-color: #f0f0f0; 
@@ -55,14 +55,13 @@
         }
 
         .banner-center h1 {
-            font-size: 24px; /* Increased */
-            font-weight: bold; margin-bottom: 8px; text-transform: uppercase;
+            font-size: 22px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;
         }
-        .banner-center p { font-size: 20px; /* Increased */ font-weight: bold; }
+        .banner-center p { font-size: 18px; font-weight: bold; }
 
         /* --- Blue Line --- */
         .thick-blue-line-top {
-            height: 26px; /* Increased */
+            height: 24px;
             background-color: #003153; 
             width: 100%; 
             margin-bottom: 35px;
@@ -78,7 +77,7 @@
 
         th, td {
             border: 1px solid black;
-            padding: 14px 16px; /* Increased padding for bigger text */
+            padding: 12px 15px; 
             text-align: left;
             vertical-align: middle;
         }
@@ -87,7 +86,6 @@
 
         .text-center { text-align: center; }
         .font-bold { font-weight: bold; }
-        .align-left { text-align: left; }
 
         /* --- Table 1 Specifics --- */
         .table-personal { margin-bottom: 0; }
@@ -101,65 +99,50 @@
             padding: 10px;
         }
 
+        /* Candidate Photo */
         .candidate-photo {
-            width: 110px; /* Increased */
+            width: 100px; 
             height: auto; 
             display: block;
             margin: 0 auto;
             border: 1px solid #ddd; 
-            min-height: 110px; 
+            min-height: 100px; 
             background-color: #f9f9f9; 
         }
 
         .qr-code-img {
-            width: 160px; /* Increased */
+            width: 150px; 
             height: auto;
             display: block;
             margin: 0 auto;
         }
 
-        /* --- ID Row (Between Tables) --- */
-        .id-row {
-            display: flex;
-            justify-content: space-between; 
-            font-size: 13px; /* Increased */
+        .table-id-text {
+            text-align: right;
+            font-size: 11px;
             font-style: italic;
-            margin-top: 4px;
-            margin-bottom: 8px;
-            padding: 0 5px;
+            margin-top: 2px;
+            margin-bottom: 5px;
+            padding-right: 5px;
         }
 
         /* --- Table 2 Specifics --- */
-        .table-scores { table-layout: auto; margin-bottom: 40px; width: 100%; }
-        
-        /* Keeping the tight fit for the first column */
-        .table-scores th:first-child, 
-        .table-scores td:first-child {
-            width: 1%; 
-            white-space: nowrap; 
-            padding-right: 20px; 
-        }
-
-        .table-scores th:last-child, 
-        .table-scores td:last-child {
-            padding-left: 12px; 
-        }
-
-        .section-header { background-color: #fff; text-align: center; font-size: 16px; }
-        
-        sup { font-size: 11px; }
+        .table-scores { table-layout: fixed; margin-bottom: 40px; }
+        .section-header { width: 33.3333%; background-color: #fff; text-align: center; font-size: 15px; }
+        .table-scores th { text-align: center; }
+        .symbol-cell { text-align: center; font-weight: bold; width: 50px; }
+        .footnote-cell { font-size: 12px; font-style: italic; padding: 15px; border-top: 1px solid black; }
+        sup { font-size: 10px; }
 
         /* --- Footer --- */
-        /* Increased margin-bottom to create more gap */
-        .footer-section { margin-top: 40px; margin-bottom: 450px; color: #000; }
-        
+        .footer-section { margin-top: 40px; margin-bottom: 300px; color: #000; }
         .result-date-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
-        .date-text { font-weight: bold; font-size: 18px; /* Increased */ }
+        .date-text { font-weight: bold; font-size: 16px; }
         .signature-block { text-align: center; padding-right: 30px; }
-        .signature-img { height: 70px; /* Increased */ display: block; margin: 0 auto 10px auto; }
-        .director-text { font-weight: bold; font-size: 18px; /* Increased */ }
+        .signature-img { height: 60px; display: block; margin: 0 auto 10px auto; }
+        .director-text { font-weight: bold; font-size: 16px; }
 
-        .notes-container { font-size: 15px; /* Increased */ line-height: 1.6; }
+        .notes-container { font-size: 13px; line-height: 1.6; }
         .notes-container p { margin-bottom: 15px; }
         .notes-list { list-style-type: none; padding-left: 0; }
         .notes-list li { margin-bottom: 12px; display: flex; align-items: flex-start; }
@@ -173,7 +156,7 @@
 
         /* --- Bottom Banner --- */
         .bottom-banner {
-            height: 90px; /* Increased */
+            height: 84px;
             background-color: #003153; 
             width: 100%;
             margin-top: auto; 
@@ -182,12 +165,83 @@
             align-items: center;
             color: white;
             font-weight: bold;
-            font-size: 14px; /* Increased */
+            font-size: 13px; 
             text-align: center;
             padding: 0 20px;
             line-height: 1.5;
         }
 
+        /* =========================================
+           MOBILE RESPONSIVE STYLES
+           ========================================= */
+        @media only screen and (max-width: 768px) {
+            
+            /* Adjust Container Padding */
+            .full-width-container {
+                padding: 0 10px;
+            }
+
+            /* Stack Banner Vertically */
+            .banner {
+                flex-direction: column;
+                height: auto; /* Allow growth */
+                padding-bottom: 15px;
+            }
+
+            .banner-left, .banner-right {
+                width: 100%;
+                justify-content: center; /* Center images */
+                margin-bottom: 10px;
+            }
+
+            .banner-center h1 {
+                font-size: 18px; /* Slightly smaller text */
+            }
+            .banner-center p {
+                font-size: 14px;
+            }
+
+            /* Adjust Table Sizing for Mobile */
+            th, td {
+                padding: 8px 5px; /* Reduce padding */
+                font-size: 12px;  /* Reduce font size */
+            }
+
+            .table-personal th {
+                min-width: 100px; /* Allow shrinking */
+            }
+
+            /* Adjust Image Columns */
+            .image-column {
+                min-width: auto; /* Remove strict min-width */
+                width: 30%;
+            }
+            .candidate-photo {
+                width: 80px; /* Smaller photo */
+                min-height: 80px;
+            }
+            .qr-code-img {
+                width: 100px; /* Smaller QR */
+            }
+
+            /* Allow Bottom Banner to Grow */
+            .bottom-banner {
+                height: auto;
+                padding: 15px;
+                font-size: 11px; /* Slightly smaller text for mobile footer */
+            }
+
+            /* Stack Signature Block if needed */
+            .result-date-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                text-align: center;
+            }
+            .signature-block {
+                padding-right: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -195,17 +249,17 @@
     <div class="full-width-container">
         <header class="banner">
             <div class="banner-left">
-                <img src="MOD.png" alt="Left Banner" class="banner-image-fit">
+                <img src="path/to/left_banner.png" alt="Left Banner" class="banner-image-fit">
             </div>
             
             <div class="banner-center">
-                <h1>JOINT ENTRANCE EXAMINATION (MAIN) – 2026</h1>
-                <p>Session 1 (JANUARY 2026)</p>
+                <h1>JOINT ENTRANCE EXAMINATION (MAIN) – 2022</h1>
+                <p>Session 1 (JUNE 2022)</p>
                 <p>NTA SCORE</p>
             </div>
 
             <div class="banner-right">
-                <img src="NTA.png" alt="Right Banner" class="banner-image-fit">
+                <img src="path/to/right_banner.png" alt="Right Banner" class="banner-image-fit">
             </div>
         </header>
     </div>
@@ -213,97 +267,140 @@
     <div class="thick-blue-line-top"></div>
 
     <div class="full-width-container">
-        
-        <table class="table-personal">
-            <tbody>
-                <tr>
-                    <th>Application No.</th>
-                    <td>260311213549</td>
-                    <th>Roll No.</th>
-                    <td>D0861901</td>
-                    <td rowspan="3" class="image-column">
-                        <img src="jas.png" alt="Candidate Photo" class="candidate-photo">
-                    </td>
-                </tr>
-                <tr>
-                    <th>Candidate's Name</th>
-                    <td colspan="3" class="font-bold">JASHITH SHARMA</td>
-                </tr>
-                <tr>
-                    <th>Mother's Name</th>
-                    <td colspan="3">RITU SHARMA</td>
-                </tr>
-                <tr>
-                    <th>Father's Name</th>
-                    <td colspan="3">YOGESH SHARMA</td>
-                     <td rowspan="4" class="image-column" style="vertical-align: bottom;">
-                        <img src="QR..png" alt="QR Code" class="qr-code-img">
-                    </td>
-                </tr>
-                <tr>
-                    <th>Category</th>
-                    <td>GENERAL</td>
-                    <th>Person with Disability(PwD)</th>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <th>Gender</th>
-                    <td>Male</td>
-                    <th>Date of Birth</th>
-                    <td>30-12-2008</td>
-                </tr>
-                <tr>
-                    <th>State of Eligibility</th>
-                    <td>DELHI</td>
-                    <th>Nationality</th>
-                    <td>Indian</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div class="id-row">
-            <span>NTA098192</span>
-            <span>0EBC5D239PX32C00B0BCA27CBC2BCB44</span>
-        </div>
-
-        <table class="table-scores">
-            <thead>
-                <tr>
-                    <th class="align-left">Subject</th>
-                    <th class="align-left">NTA Score<sup>'1'</sup></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="font-bold">Physics</td>
-                    <td class="align-left">98.6636086</td>
-                </tr>
-                <tr>
-                    <td class="font-bold">Chemistry</td>
-                    <td class="align-left">94.9781714</td>
-                </tr>
-                <tr>
-                    <td class="font-bold">Mathematics</td>
-                    <td class="align-left">98.1839231</td>
-                </tr>
-                <tr>
-                    <td class="font-bold">Total</td>
-                    <td class="font-bold align-left">99.3216501</td>
-                </tr>
-                <tr>
-                    <th class="align-left" style="vertical-align: middle;">NTA Score in Words</th>
-                    <td class="align-left">
-                        <strong>@</strong> Ninety Nine point One Two One Six Five Zero One Only
-                    </td>
-                </tr>
+        <div style="overflow-x: auto;">
+            <table class="table-personal">
+                <tbody>
+                    <tr>
+                        <th>Application No.</th>
+                        <td>220310347364</td>
+                        <th>Roll No.</th>
+                        <td>UP12006879</td>
+                        <td rowspan="3" class="image-column">
+                            <img src="path/to/candidate_photo.jpg" alt="Candidate Photo" class="candidate-photo">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Candidate's Name</th>
+                        <td colspan="3" class="font-bold">ANWAR AFTAB ANSARI</td>
+                    </tr>
+                    <tr>
+                        <th>Mother's Name</th>
+                        <td colspan="3">RABIA BANO</td>
+                    </tr>
+                    <tr>
+                        <th>Father's Name</th>
+                        <td colspan="3">MOHD ASLAM ANSARI</td>
+                        <td rowspan="4" class="image-column" style="vertical-align: bottom;">
+                            <img src="path/to/qr_code.png" alt="QR Code" class="qr-code-img">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Category</th>
+                        <td>OBC- NCL</td>
+                        <th>Person with Disability(PwD)</th>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>Male</td>
+                        <th>Date of Birth</th>
+                        <td>04-12-2003</td>
+                    </tr>
+                    <tr>
+                        <th>State of Eligibility</th>
+                        <td>UTTAR PRADESH</td>
+                        <th>Nationality</th>
+                        <td>Indian</td>
+                    </tr>
                 </tbody>
-        </table>
+            </table>
+        </div>
+        
+        <div class="table-id-text">0EBC5D328CA32C00B0BCA27CB76BCB44</div>
+
+        <div style="overflow-x: auto;">
+            <table class="table-scores">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="section-header">Paper 1 (B.E./B Tech.) @</th>
+                        <th colspan="2" class="section-header">Paper 2A (B. Arch.) #</th>
+                        <th colspan="2" class="section-header">Paper 2B (B. Planning) $</th>
+                    </tr>
+                    <tr>
+                        <th class="align-left">Subject</th>
+                        <th>NTA Score<sup>'1'</sup></th>
+                        <th class="align-left">Subject</th>
+                        <th>NTA Score<sup>'1'</sup></th>
+                        <th class="align-left">Subject</th>
+                        <th>NTA Score<sup>'1'</sup></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold">Physics</td>
+                        <td class="text-center">79.6636086</td>
+                        <td class="font-bold">Mathematics *</td>
+                        <td class="text-center">----------</td>
+                        <td class="font-bold">Mathematics *</td>
+                        <td class="text-center">----------</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Chemistry</td>
+                        <td class="text-center">24.0981714</td>
+                        <td class="font-bold">Aptitude Test *</td>
+                        <td class="text-center">----------</td>
+                        <td class="font-bold">Aptitude Test *</td>
+                        <td class="text-center">----------</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Mathematics</td>
+                        <td class="text-center">86.1839231</td>
+                        <td class="font-bold">Drawing Test</td>
+                        <td class="text-center">----------</td>
+                        <td class="font-bold" rowspan="2" style="vertical-align: top;">Planning Based Questions</td>
+                        <td class="text-center" rowspan="2" style="vertical-align: top;">----------</td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: none; border-bottom: none;"></td>
+                        <td style="border-top: none; border-bottom: none;"></td>
+                        <td style="border-top: none; border-bottom: none;"></td>
+                        <td style="border-top: none; border-bottom: none;"></td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Total</td>
+                        <td class="font-bold text-center">69.7216501</td>
+                        <td class="font-bold">Total</td>
+                        <td class="text-center">----------</td>
+                        <td class="font-bold">Total</td>
+                        <td class="text-center">----------</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="3" class="align-left" style="vertical-align: middle;">NTA Score in Words</th>
+                        <td class="symbol-cell">@</td>
+                        <td colspan="4">Sixty Nine point Seven Two One Six Five Zero One Only</td>
+                    </tr>
+                    <tr>
+                        <td class="symbol-cell">#</td>
+                        <td colspan="4">----------</td>
+                    </tr>
+                    <tr>
+                        <td class="symbol-cell">$</td>
+                        <td colspan="4">----------</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="footnote-cell">
+                            '*' NTA Scores of same subject but under different groups, like B. Arch and B Planning, may differ as number of candidates appeared in two groups may be different.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="footer-section">
             <div class="result-date-row">
-                <div class="date-text">Date of declaration of result : 12.02.2026</div>
+                <div class="date-text">Date of declaration of result : 10.07.2022</div>
                 <div class="signature-block">
-                    <img src="sig.png" alt="Signature" class="signature-img">
+                    <img src="path/to/signature.png" alt="Signature" class="signature-img">
                     <div class="director-text">Senior Director, NTA</div>
                 </div>
             </div>
@@ -323,7 +420,7 @@
                         </span></li>
                     <li><span class="note-number">4.</span><span class="note-text">The NTA Score of the Total is <strong>NOT</strong> an aggregate or average of the NTA Score of individual subject.</span></li>
                     <li><span class="note-number">5.</span><span class="note-text">Candidate’s particulars including Category and Person with Disability (PwD) have been indicated as mentioned by the candidate in the online application form.</span></li>
-                    <li><span class="note-number">6.</span><span class="note-text"><strong>After the JEE (MAIN) - 2026 Session 2, the ranks of the candidates will be released taking into consideration the best of the two NTA Scores.</strong></span></li>
+                    <li><span class="note-number">6.</span><span class="note-text"><strong>After the JEE (MAIN) - 2022 Session 2, the ranks of the candidates will be released taking into consideration the best of the two NTA Scores.</strong></span></li>
                     <li><span class="note-number">7.</span><span class="note-text">RL means ‘Result Later’.</span></li>
                 </ul>
             </div>
