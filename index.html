@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Scorecard Final Fluid</title>
+    <title>NTA Scorecard Maximum Space</title>
     <style>
         /* --- Basic Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,7 +11,6 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #ffffff;
-            /* Using a fluid font size that scales slightly with screen width */
             font-size: clamp(12px, 1.5vw, 16px); 
             color: #000;
             overflow-x: hidden; 
@@ -23,25 +22,22 @@
 
         .full-width-container { 
             width: 100%; 
-            /* Max width keeps it looking good on huge screens, but 100% lets it shrink */
             max-width: 1200px; 
-            margin: 0 auto; /* Centers the content */
-            padding: 0 15px; 
+            margin: 0 auto; 
+            padding: 0 15px; /* Default padding for desktop */
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
-        /* --- Header Banner (FLUID) --- */
+        /* --- Header Banner --- */
         .banner {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-top: 15px;
             padding-bottom: 15px;
-            /* Allows banner to shrink height naturally */
             min-height: auto; 
-            /* Key: Forces items to stay in one line, never stack */
             flex-wrap: nowrap; 
             width: 100%;
         }
@@ -49,13 +45,11 @@
         .banner-left, .banner-right {
             display: flex;
             align-items: center;
-            /* Allows images to shrink (1) but not grow too big (0) */
             flex: 1 1 25%; 
             max-width: 25%;
         }
         
         .banner-image-fit {
-            /* Images will shrink with the container */
             width: 100%;      
             height: auto;
             max-height: 90px;
@@ -67,13 +61,11 @@
 
         .banner-center {
             text-align: center;
-            /* Center text takes up the remaining space */
             flex: 2 1 50%; 
-            padding: 0 10px;
+            padding: 0 5px; /* Reduced padding for more space */
         }
 
         .banner-center h1 {
-            /* Fluid font size for header text */
             font-size: clamp(14px, 2.5vw, 22px); 
             font-weight: bold; 
             margin-bottom: 5px; 
@@ -95,10 +87,9 @@
             margin-top: 5px;
         }
 
-        /* --- Tables (FLUID) --- */
+        /* --- Tables --- */
         table {
             width: 100%;
-            /* REMOVED fixed min-width so it contracts instead of scrolling */
             border-collapse: collapse;
             border: 2px solid black;
             table-layout: fixed; 
@@ -107,11 +98,10 @@
 
         th, td {
             border: 1px solid black;
-            /* Fluid padding that shrinks on smaller screens */
             padding: 0.8em 0.5em; 
             text-align: left;
             vertical-align: middle;
-            word-wrap: break-word; /* Prevents long text from breaking layout */
+            word-wrap: break-word; 
         }
 
         th { font-weight: bold; background-color: #fff; }
@@ -119,7 +109,7 @@
         .text-center { text-align: center; }
         .font-bold { font-weight: bold; }
 
-        /* --- Table 1 Proportions (Matches Table 2) --- */
+        /* --- Table 1 Proportions --- */
         .col-t1-1 { width: 25%; } 
         .col-t1-2 { width: 25%; } 
         .col-t1-3 { width: 15%; }
@@ -133,7 +123,6 @@
         }
 
         .candidate-photo {
-            /* Photo shrinks with column */
             width: 80%; 
             max-width: 110px;
             height: auto; 
@@ -169,14 +158,12 @@
 
         .score-cell { 
             text-align: left; 
-            /* Matches standard cell padding */
             padding-left: 0.5em; 
         }
 
         /* --- Footer Section --- */
         .footer-section { 
             margin-top: 15px; 
-            /* HUGE GAP at bottom */
             margin-bottom: 300px; 
             color: #000; 
             flex-grow: 1; 
@@ -231,6 +218,23 @@
             min-height: 80px;
         }
 
+        /* --- PHONE SPECIFIC OPTIMIZATIONS --- */
+        @media only screen and (max-width: 768px) {
+            .full-width-container {
+                /* DRASTICALLY REDUCED PADDING: Maximizes space on phone */
+                padding: 0 2px; 
+            }
+
+            /* Tighter Banner on Mobile */
+            .banner {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .banner-center {
+                padding: 0 2px;
+            }
+        }
     </style>
 </head>
 <body>
