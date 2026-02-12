@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Scorecard No Padding Fluid</title>
+    <title>NTA Scorecard Full Screen Wide</title>
     <style>
         /* --- Basic Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,21 +11,20 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #ffffff;
-            font-size: clamp(12px, 1.5vw, 16px); 
+            font-size: clamp(14px, 1.2vw, 18px); /* Scales text with screen width */
             color: #000;
             overflow-x: hidden; 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            margin: 0;
+            width: 100%;
         }
 
         .full-width-container { 
             width: 100%; 
-            max-width: none; 
+            max-width: 100vw; /* Occupies full browser width */
             margin: 0; 
-            /* PADDING REMOVED: Edge-to-edge widespread look */
-            padding: 0; 
+            padding: 0; /* Zero padding for edge-to-edge look */
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -36,27 +35,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            /* Added small horizontal padding to banner content so logos aren't cut off */
-            padding-left: 10px;
-            padding-right: 10px;
-            min-height: auto; 
-            flex-wrap: nowrap; 
+            padding: 15px 20px; /* Small inner padding for logos */
             width: 100%;
         }
 
         .banner-left, .banner-right {
             display: flex;
             align-items: center;
-            flex: 1 1 25%; 
-            max-width: 25%;
+            flex: 0 0 20%; 
         }
         
         .banner-image-fit {
-            width: 100%;      
             height: auto;
-            max-height: 90px;
+            max-height: 100px;
+            max-width: 100%;
             object-fit: contain; 
             display: block;
         }
@@ -65,88 +57,64 @@
 
         .banner-center {
             text-align: center;
-            flex: 2 1 50%; 
-            padding: 0 5px; 
+            flex: 1; 
+            padding: 0 10px;
         }
 
         .banner-center h1 {
-            font-size: clamp(14px, 2.5vw, 22px); 
+            font-size: clamp(16px, 2.2vw, 24px); 
             font-weight: bold; 
             margin-bottom: 5px; 
             text-transform: uppercase;
-            line-height: 1.2;
         }
         .banner-center p { 
-            font-size: clamp(12px, 2vw, 18px); 
-            font-weight: bold; 
-            margin: 2px 0;
+            font-size: clamp(14px, 1.8vw, 20px); 
+            font-weight: bold;
         }
 
         /* --- Blue Line --- */
         .thick-blue-line-top {
-            height: 20px;
+            height: 24px;
             background-color: #003153; 
             width: 100%; 
             margin-bottom: 25px;
-            margin-top: 5px;
         }
 
         /* --- Tables --- */
         table {
             width: 100%;
             border-collapse: collapse;
-            /* Table borders will sit exactly on the screen edge */
-            border-left: none;
+            border: 2px solid black;
+            border-left: none; /* Seamless side fit */
             border-right: none;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
             table-layout: fixed; 
-            margin-bottom: 5px;
         }
 
         th, td {
             border: 1px solid black;
-            padding: 0.8em 0.5em; 
+            padding: 15px 12px; /* Increased padding for wide look */
             text-align: left;
             vertical-align: middle;
-            word-wrap: break-word; 
         }
-
-        /* Ensure first/last cells maintain border look */
-        td:first-child, th:first-child { border-left: 2px solid black; }
-        td:last-child, th:last-child { border-right: 2px solid black; }
 
         th { font-weight: bold; background-color: #fff; }
 
-        .text-center { text-align: center; }
-        .font-bold { font-weight: bold; }
-
-        /* --- Table 1 Proportions --- */
-        .col-t1-1 { width: 25%; } 
-        .col-t1-2 { width: 25%; } 
-        .col-t1-3 { width: 15%; }
-        .col-t1-4 { width: 15%; }
-        .col-t1-5 { width: 20%; }
-
-        .image-column {
-            text-align: center;
-            vertical-align: middle;
-            padding: 5px;
-        }
+        /* --- Table Proportions --- */
+        .col-25 { width: 25%; } 
+        .col-15 { width: 15%; }
+        .col-20 { width: 20%; }
+        .col-75 { width: 75%; }
 
         .candidate-photo {
-            width: 80%; 
-            max-width: 110px;
+            width: 120px; 
             height: auto; 
             display: block;
             margin: 0 auto;
             border: 1px solid #ddd; 
-            background-color: #f9f9f9; 
         }
 
         .qr-code-img {
-            width: 90%; 
-            max-width: 160px;
+            width: 170px; 
             height: auto;
             display: block;
             margin: 0 auto;
@@ -156,29 +124,16 @@
         .id-row {
             display: flex;
             justify-content: space-between; 
-            align-items: center;
-            font-size: clamp(10px, 1.2vw, 12px); 
+            padding: 8px 20px;
+            font-size: 13px;
             font-style: italic;
-            margin-top: 2px;
-            margin-bottom: 2px;
-            padding: 0 10px; /* Small padding so text doesn't touch screen edge */
-        }
-
-        /* --- Table 2 Specifics --- */
-        .col-subject { width: 25%; } 
-        .col-score { width: 75%; } 
-
-        .score-cell { 
-            text-align: left; 
-            padding-left: 0.5em; 
         }
 
         /* --- Footer Section --- */
         .footer-section { 
-            margin-top: 15px; 
-            padding: 0 10px; /* Padding for footer text only */
-            margin-bottom: 300px; 
-            color: #000; 
+            margin-top: 20px; 
+            padding: 0 20px; 
+            margin-bottom: 300px; /* Big gap at bottom */
             flex-grow: 1; 
         }
         
@@ -186,33 +141,13 @@
             display: flex; 
             justify-content: space-between; 
             align-items: flex-end; 
-            margin-bottom: 20px; 
+            margin-bottom: 30px; 
         }
         
-        .date-text { font-weight: bold; font-size: clamp(12px, 1.5vw, 18px); }
+        .date-text { font-weight: bold; font-size: 18px; }
         .signature-block { text-align: center; }
-        .signature-img { 
-            height: auto; 
-            max-height: 70px; 
-            display: block; 
-            margin: 0 auto 5px auto; 
-        }
-        .director-text { font-weight: bold; font-size: clamp(12px, 1.5vw, 18px); }
-
-        .notes-container { 
-            font-size: clamp(11px, 1.3vw, 14px); 
-            line-height: 1.5; 
-        }
-        .notes-container p { margin-bottom: 10px; }
-        .notes-list { list-style-type: none; padding-left: 0; }
-        .notes-list li { margin-bottom: 8px; display: flex; align-items: flex-start; }
-        .note-number { font-weight: bold; margin-right: 8px; min-width: 15px; }
-        .note-text { flex: 1; }
-
-        .formula-container { text-align: center; margin: 15px 0; font-weight: bold; width: 100%; overflow-x: auto; }
-        .formula-fraction { display: inline-block; text-align: center; vertical-align: middle; white-space: nowrap; }
-        .formula-top { border-bottom: 1px solid black; padding-bottom: 2px; display: block; }
-        .formula-bottom { padding-top: 2px; display: block; }
+        .signature-img { height: 80px; display: block; margin: 0 auto 5px auto; }
+        .director-text { font-weight: bold; font-size: 18px; }
 
         /* --- Bottom Banner --- */
         .bottom-banner {
@@ -224,42 +159,32 @@
             align-items: center;
             color: white;
             font-weight: bold;
-            font-size: clamp(10px, 1.2vw, 14px); 
+            font-size: 15px; 
             text-align: center;
-            padding: 20px;
-            line-height: 1.4;
-            min-height: 80px;
+            padding: 30px;
+            min-height: 100px;
         }
+
     </style>
 </head>
 <body>
 
     <div class="full-width-container">
         <header class="banner">
-            <div class="banner-left">
-                <img src="MOD.png" alt="Left Banner" class="banner-image-fit"> 
-            </div>
-            
+            <div class="banner-left"><img src="MOD.png" alt="Left Banner" class="banner-image-fit"></div>
             <div class="banner-center">
                 <h1>JOINT ENTRANCE EXAMINATION (MAIN) – 2026</h1> 
                 <p>Session 1 (JANUARY 2022)</p> 
                 <p>NTA SCORE-PAPER 1 (B.E./B.TECH)</p>
             </div>
-
-            <div class="banner-right">
-                <img src="NTA.png" alt="Right Banner" class="banner-image-fit"> 
-            </div>
+            <div class="banner-right"><img src="NTA.png" alt="Right Banner" class="banner-image-fit"></div>
         </header>
 
         <div class="thick-blue-line-top"></div>
 
         <table>
             <colgroup>
-                <col class="col-t1-1">
-                <col class="col-t1-2">
-                <col class="col-t1-3">
-                <col class="col-t1-4">
-                <col class="col-t1-5">
+                <col class="col-25"><col class="col-25"><col class="col-15"><col class="col-15"><col class="col-20">
             </colgroup>
             <tbody>
                 <tr>
@@ -267,13 +192,11 @@
                     <td>260311213549</td> 
                     <th>Roll No.</th>
                     <td>D08346879</td> 
-                    <td rowspan="3" class="image-column">
-                        <img src="jas.png" alt="Candidate Photo" class="candidate-photo"> 
-                    </td>
+                    <td rowspan="3" style="text-align: center;"><img src="jas.png" alt="Photo" class="candidate-photo"></td>
                 </tr>
                 <tr>
                     <th>Candidate's Name</th>
-                    <td colspan="3" class="font-bold">JASHITH SHARMA</td> 
+                    <td colspan="3" style="font-bold">JASHITH SHARMA</td> 
                 </tr>
                 <tr>
                     <th>Mother's Name</th>
@@ -282,9 +205,7 @@
                 <tr>
                     <th>Father's Name</th>
                     <td colspan="3">YOGESH SHARMA</td> 
-                    <td rowspan="4" class="image-column" style="vertical-align: bottom;">
-                            <img src="QR..png" alt="QR Code" class="qr-code-img"> 
-                    </td>
+                    <td rowspan="4" style="text-align: center; vertical-align: bottom;"><img src="QR..png" alt="QR" class="qr-code-img"></td>
                 </tr>
                 <tr>
                     <th>Category</th>
@@ -314,35 +235,22 @@
         
         <table>
             <colgroup>
-                <col class="col-subject">
-                <col class="col-score">
+                <col class="col-25"><col class="col-75">
             </colgroup>
             <thead>
                 <tr>
-                    <th class="align-left">Subject</th>
-                    <th class="score-cell">NTA Score<sup>'1'</sup></th>
+                    <th style="text-align: left;">Subject</th>
+                    <th style="padding-left: 12px;">NTA Score<sup>'1'</sup></th>
                 </tr>
             </thead>
             <tbody>
+                <tr><td class="font-bold">Physics</td><td style="padding-left: 12px;">98.6636086</td></tr>
+                <tr><td class="font-bold">Chemistry</td><td style="padding-left: 12px;">94.0762714</td></tr>
+                <tr><td class="font-bold">Mathematics</td><td style="padding-left: 12px;">99.1839231</td></tr>
+                <tr><td class="font-bold">Total</td><td style="font-bold; padding-left: 12px;">99.3216501</td></tr>
                 <tr>
-                    <td class="font-bold">Physics</td>
-                    <td class="score-cell">98.6636086</td> 
-                </tr>
-                <tr>
-                    <td class="font-bold">Chemistry</td>
-                    <td class="score-cell">94.0762714</td> 
-                </tr>
-                <tr>
-                    <td class="font-bold">Mathematics</td>
-                    <td class="score-cell">99.1839231</td> 
-                </tr>
-                <tr>
-                    <td class="font-bold">Total</td>
-                    <td class="font-bold score-cell">99.3216501</td> 
-                </tr>
-                <tr>
-                    <th class="align-left" style="vertical-align: middle;">NTA Score in Words</th>
-                    <td class="score-cell"><strong>@</strong> Ninety Nine point Three Two One Six Five Zero One Only</td> 
+                    <th style="text-align: left;">NTA Score in Words</th>
+                    <td style="padding-left: 12px;"><strong>@</strong> Ninety Nine point Three Two One Six Five Zero One Only</td> 
                 </tr>
             </tbody>
         </table>
@@ -355,24 +263,11 @@
                     <div class="director-text">Senior Director, NTA</div>
                 </div>
             </div>
-
             <div class="notes-container">
-                <p><strong>NTA Scores are normalized scores across multi-session papers and are based on the relative performance of all those who appeared for the examination in one session. The marks obtained are converted into a scale ranging from 100 to 0 for each session.</strong></p>
-                <ul class="notes-list">
-                    <li><span class="note-number">1.</span><span class="note-text">NTA score is not the same as percentage of marks obtained.</span></li>
-                    <li><span class="note-number">2.</span><span class="note-text">The NTA Score indicates the percentage of candidates who have scored <strong>EQUAL TO OR BELOW</strong> (same or lower raw scores) a particular candidate in that session.</span></li>
-                    <li><span class="note-number">3.</span><span class="note-text">The NTA scores of a Candidate have been calculated as follows:
-                            <div class="formula-container">
-                                <div class="formula-fraction">
-                                    <span class="formula-top">100 X Number of candidates appeared in the 'Session' with raw score EQUAL TO OR LESS than the candidate</span>
-                                    <span class="formula-bottom">Total number of the candidates appeared in the 'Session'</span>
-                                </div>
-                            </div>
-                        </span></li>
-                    <li><span class="note-number">4.</span><span class="note-text">The NTA Score of the Total is <strong>NOT</strong> an aggregate or average of the NTA Score of individual subject.</span></li>
-                    <li><span class="note-number">5.</span><span class="note-text">Candidate’s particulars including Category and Person with Disability (PwD) have been indicated as mentioned by the candidate in the online application form.</span></li>
-                    <li><span class="note-number">6.</span><span class="note-text"><strong>After the JEE (MAIN) - 2022 Session 2, the ranks of the candidates will be released taking into consideration the best of the two NTA Scores.</strong></span></li>
-                    <li><span class="note-number">7.</span><span class="note-text">RL means ‘Result Later’.</span></li>
+                <p><strong>NTA Scores are normalized scores across multi-session papers...</strong></p>
+                <ul style="list-style: none;">
+                    <li><strong>1.</strong> NTA score is not the same as percentage of marks obtained.</li>
+                    <li><strong>7.</strong> RL means ‘Result Later’.</li>
                 </ul>
             </div>
         </div>
