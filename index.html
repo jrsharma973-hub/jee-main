@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Scorecard Final Adjusted</title>
+    <title>NTA Scorecard Pro Fluid</title>
     <style>
         /* --- Basic Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,7 +24,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px; /* Internal padding for logos */
+            padding: 20px 40px; 
             min-height: 130px; 
             flex-wrap: nowrap; 
             width: 100%;
@@ -54,15 +54,15 @@
             min-height: 90px;
         }
 
-        /* --- Centered Content Container (With Margins) --- */
+        /* --- FLUID Centered Content Container --- */
         .centered-content-wrapper { 
-            width: 100%; 
-            padding: 0 20px; 
+            /* FIXED: Now uses 96% to almost fit the page with a proportionate gap */
+            width: 96%; 
+            max-width: none; 
+            margin: 0 auto; 
             flex: 1;
             display: flex;
             flex-direction: column;
-            max-width: 1200px; /* Keeps the middle part centered with margins */
-            margin: 0 auto;
         }
 
         .banner-left, .banner-right {
@@ -78,7 +78,6 @@
             width: auto;      
             max-width: 100%; 
             display: block;
-            background-color: #f0f0f0; 
         }
         
         .banner-right { justify-content: flex-end; }
@@ -95,7 +94,6 @@
         }
         .banner-center p { font-size: 18px; font-weight: bold; }
 
-        /* --- Scroll Wrapper for Phone --- */
         .table-scroll-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -153,7 +151,6 @@
             margin: 0 auto;
         }
 
-        /* --- ID ROW --- */
         .id-row {
             display: flex;
             justify-content: space-between; 
@@ -166,26 +163,13 @@
         }
 
         /* --- Table 2 Specifics --- */
-        .table-scores { 
-            margin-top: 0; 
-            margin-bottom: 0; 
-        }
-        
         .col-subject { width: 25%; } 
         .col-score { width: 75%; } 
 
-        .section-header { background-color: #fff; text-align: center; font-size: 16px; }
-        
-        .table-scores th { text-align: left; }
-        
         .score-cell { 
             text-align: left; 
             padding-left: 10px; 
         }
-
-        .symbol-cell { text-align: center; font-weight: bold; width: 30px; }
-        .footnote-cell { font-size: 13px; font-style: italic; padding: 15px; border-top: 1px solid black; }
-        sup { font-size: 11px; }
 
         /* --- Footer Section --- */
         .footer-section { 
@@ -234,13 +218,8 @@
                 max-width: 100%;
                 justify-content: center; 
             }
-            .result-date-row {
-                flex-direction: column; 
-                align-items: center;
-                text-align: center;
-            }
-            .signature-block {
-                padding-right: 0;
+            .centered-content-wrapper {
+                width: 98%; /* Tighter margins for mobile */
             }
         }
     </style>
