@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Scorecard Phone Friendly</title>
+    <title>NTA Scorecard Mobile Fixed</title>
     <style>
         /* --- Basic Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,23 +13,23 @@
             background-color: #ffffff;
             font-size: 14px; 
             color: #000;
-            overflow-x: hidden; /* Prevents horizontal scroll on the body */
+            overflow-x: hidden; 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        .full-width-container { width: 100%; padding: 0 25px; flex: 1; }
+        .full-width-container { width: 100%; padding: 0 15px; flex: 1; }
 
         /* --- Header Banner --- */
         .banner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 25px;
+            padding-top: 20px;
             padding-bottom: 20px;
-            height: 130px; 
-            transition: height 0.3s; /* Smooth transition for resizing */
+            min-height: 130px; 
+            flex-wrap: wrap; /* Allows stacking on mobile */
         }
 
         .banner-left, .banner-right {
@@ -42,6 +42,7 @@
         .banner-image-fit {
             max-height: 85px; 
             width: auto;      
+            max-width: 100%; /* Prevents overflow on mobile */
             display: block;
             background-color: #f0f0f0; 
         }
@@ -52,12 +53,13 @@
             text-align: center;
             flex-grow: 1;
             padding: 0 10px;
+            min-width: 200px; /* Ensures text doesn't get crushed */
         }
 
         .banner-center h1 {
-            font-size: 22px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;
+            font-size: 20px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;
         }
-        .banner-center p { font-size: 18px; font-weight: bold; }
+        .banner-center p { font-size: 16px; font-weight: bold; }
 
         /* --- Blue Line --- */
         .thick-blue-line-top {
@@ -68,18 +70,30 @@
             margin-top: 10px;
         }
 
+        /* --- Scroll Wrapper for Tables --- */
+        /* This prevents distortion by allowing the table to stay wide and scroll */
+        .table-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+            margin-bottom: 20px;
+        }
+
         /* --- Tables --- */
         table {
             width: 100%;
+            /* Force a minimum width so tables don't squish on phones */
+            min-width: 700px; 
             border-collapse: collapse;
             border: 2px solid black;
         }
 
         th, td {
             border: 1px solid black;
-            padding: 12px 15px; 
+            padding: 10px 12px; 
             text-align: left;
             vertical-align: middle;
+            font-size: 14px;
         }
 
         th { font-weight: bold; background-color: #fff; }
@@ -89,11 +103,11 @@
 
         /* --- Table 1 Specifics --- */
         .table-personal { margin-bottom: 0; }
-        .table-personal th { width: 15%; min-width: 180px; } 
+        .table-personal th { width: 15%; min-width: 140px; } 
         
         .image-column {
-            width: 22%; 
-            min-width: 200px;
+            width: 20%; 
+            min-width: 160px;
             text-align: center;
             vertical-align: middle;
             padding: 10px;
@@ -111,7 +125,7 @@
         }
 
         .qr-code-img {
-            width: 150px; 
+            width: 140px; 
             height: auto;
             display: block;
             margin: 0 auto;
@@ -130,13 +144,22 @@
         .table-scores { table-layout: fixed; margin-bottom: 40px; }
         .section-header { width: 33.3333%; background-color: #fff; text-align: center; font-size: 15px; }
         .table-scores th { text-align: center; }
-        .symbol-cell { text-align: center; font-weight: bold; width: 50px; }
+        .symbol-cell { text-align: center; font-weight: bold; width: 40px; }
         .footnote-cell { font-size: 12px; font-style: italic; padding: 15px; border-top: 1px solid black; }
         sup { font-size: 10px; }
 
         /* --- Footer --- */
-        .footer-section { margin-top: 40px; margin-bottom: 300px; color: #000; }
-        .result-date-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+        .footer-section { margin-top: 20px; margin-bottom: 100px; color: #000; }
+        
+        .result-date-row { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-end; 
+            margin-bottom: 30px; 
+            flex-wrap: wrap; /* Stack on mobile */
+            gap: 20px;
+        }
+        
         .date-text { font-weight: bold; font-size: 16px; }
         .signature-block { text-align: center; padding-right: 30px; }
         .signature-img { height: 60px; display: block; margin: 0 auto 10px auto; }
@@ -149,14 +172,13 @@
         .note-number { font-weight: bold; margin-right: 10px; min-width: 20px; }
         .note-text { flex: 1; }
 
-        .formula-container { text-align: center; margin: 20px 0; font-weight: bold; width: 100%; }
-        .formula-fraction { display: inline-block; text-align: center; vertical-align: middle; }
+        .formula-container { text-align: center; margin: 20px 0; font-weight: bold; width: 100%; overflow-x: auto; }
+        .formula-fraction { display: inline-block; text-align: center; vertical-align: middle; white-space: nowrap; }
         .formula-top { border-bottom: 1px solid black; padding-bottom: 4px; display: block; }
         .formula-bottom { padding-top: 4px; display: block; }
 
         /* --- Bottom Banner --- */
         .bottom-banner {
-            height: 84px;
             background-color: #003153; 
             width: 100%;
             margin-top: auto; 
@@ -167,79 +189,32 @@
             font-weight: bold;
             font-size: 13px; 
             text-align: center;
-            padding: 0 20px;
+            padding: 20px;
             line-height: 1.5;
+            min-height: 84px; /* Allows growth if text wraps */
         }
 
-        /* =========================================
-           MOBILE RESPONSIVE STYLES
-           ========================================= */
+        /* ================= MOBILE SPECIFIC OVERRIDES ================= */
         @media only screen and (max-width: 768px) {
-            
-            /* Adjust Container Padding */
-            .full-width-container {
-                padding: 0 10px;
-            }
-
-            /* Stack Banner Vertically */
             .banner {
                 flex-direction: column;
-                height: auto; /* Allow growth */
-                padding-bottom: 15px;
+                gap: 15px;
             }
-
             .banner-left, .banner-right {
                 width: 100%;
-                justify-content: center; /* Center images */
-                margin-bottom: 10px;
+                justify-content: center;
             }
-
-            .banner-center h1 {
-                font-size: 18px; /* Slightly smaller text */
-            }
-            .banner-center p {
-                font-size: 14px;
-            }
-
-            /* Adjust Table Sizing for Mobile */
-            th, td {
-                padding: 8px 5px; /* Reduce padding */
-                font-size: 12px;  /* Reduce font size */
-            }
-
-            .table-personal th {
-                min-width: 100px; /* Allow shrinking */
-            }
-
-            /* Adjust Image Columns */
-            .image-column {
-                min-width: auto; /* Remove strict min-width */
-                width: 30%;
-            }
-            .candidate-photo {
-                width: 80px; /* Smaller photo */
-                min-height: 80px;
-            }
-            .qr-code-img {
-                width: 100px; /* Smaller QR */
-            }
-
-            /* Allow Bottom Banner to Grow */
-            .bottom-banner {
-                height: auto;
-                padding: 15px;
-                font-size: 11px; /* Slightly smaller text for mobile footer */
-            }
-
-            /* Stack Signature Block if needed */
-            .result-date-row {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                text-align: center;
+            .banner-center {
+                width: 100%;
             }
             .signature-block {
                 padding-right: 0;
+                width: 100%;
+            }
+            .result-date-row {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
         }
     </style>
@@ -267,7 +242,8 @@
     <div class="thick-blue-line-top"></div>
 
     <div class="full-width-container">
-        <div style="overflow-x: auto;">
+        
+        <div class="table-scroll-wrapper">
             <table class="table-personal">
                 <tbody>
                     <tr>
@@ -318,7 +294,7 @@
         
         <div class="table-id-text">0EBC5D328CA32C00B0BCA27CB76BCB44</div>
 
-        <div style="overflow-x: auto;">
+        <div class="table-scroll-wrapper">
             <table class="table-scores">
                 <thead>
                     <tr>
