@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Scorecard Mobile Optimized</title>
+    <title>NTA Scorecard Final Fluid</title>
     <style>
         /* --- Basic Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,97 +11,107 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #ffffff;
-            font-size: 16px; 
+            /* Using a fluid font size that scales slightly with screen width */
+            font-size: clamp(12px, 1.5vw, 16px); 
             color: #000;
             overflow-x: hidden; 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            margin: 0;
         }
 
         .full-width-container { 
             width: 100%; 
+            /* Max width keeps it looking good on huge screens, but 100% lets it shrink */
+            max-width: 1200px; 
+            margin: 0 auto; /* Centers the content */
             padding: 0 15px; 
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
-        /* --- Header Banner --- */
+        /* --- Header Banner (FLUID) --- */
         .banner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            min-height: 130px; 
-            /* Allows wrapping on mobile so it stacks nicely */
-            flex-wrap: wrap; 
+            padding-top: 15px;
+            padding-bottom: 15px;
+            /* Allows banner to shrink height naturally */
+            min-height: auto; 
+            /* Key: Forces items to stay in one line, never stack */
+            flex-wrap: nowrap; 
+            width: 100%;
         }
 
         .banner-left, .banner-right {
             display: flex;
             align-items: center;
-            flex: 0 0 auto;
-            width: auto;
-            max-width: 30%;
+            /* Allows images to shrink (1) but not grow too big (0) */
+            flex: 1 1 25%; 
+            max-width: 25%;
         }
         
         .banner-image-fit {
-            max-height: 90px; 
-            width: auto;      
-            max-width: 100%; 
+            /* Images will shrink with the container */
+            width: 100%;      
+            height: auto;
+            max-height: 90px;
+            object-fit: contain; 
             display: block;
-            background-color: #f0f0f0; 
         }
         
         .banner-right { justify-content: flex-end; }
 
         .banner-center {
             text-align: center;
-            flex: 1; 
-            padding: 0 15px;
-            min-width: 200px; /* Ensures text doesn't get crushed */
+            /* Center text takes up the remaining space */
+            flex: 2 1 50%; 
+            padding: 0 10px;
         }
 
         .banner-center h1 {
-            font-size: 22px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;
+            /* Fluid font size for header text */
+            font-size: clamp(14px, 2.5vw, 22px); 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+            text-transform: uppercase;
+            line-height: 1.2;
         }
-        .banner-center p { font-size: 18px; font-weight: bold; }
+        .banner-center p { 
+            font-size: clamp(12px, 2vw, 18px); 
+            font-weight: bold; 
+            margin: 2px 0;
+        }
 
         /* --- Blue Line --- */
         .thick-blue-line-top {
-            height: 24px;
+            height: 20px;
             background-color: #003153; 
             width: 100%; 
-            margin-bottom: 35px;
-            margin-top: 10px;
+            margin-bottom: 25px;
+            margin-top: 5px;
         }
 
-        /* --- Scroll Wrapper for Phone --- */
-        /* This is crucial for mobile: lets table scroll sideways without breaking layout */
-        .table-scroll-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin-bottom: 0; 
-        }
-
-        /* --- Tables --- */
+        /* --- Tables (FLUID) --- */
         table {
             width: 100%;
-            /* Forces table to keep its shape on phone (user scrolls sideways) */
-            min-width: 800px; 
+            /* REMOVED fixed min-width so it contracts instead of scrolling */
             border-collapse: collapse;
             border: 2px solid black;
             table-layout: fixed; 
+            margin-bottom: 5px;
         }
 
         th, td {
             border: 1px solid black;
-            padding: 12px 10px; 
+            /* Fluid padding that shrinks on smaller screens */
+            padding: 0.8em 0.5em; 
             text-align: left;
             vertical-align: middle;
+            word-wrap: break-word; /* Prevents long text from breaking layout */
         }
 
         th { font-weight: bold; background-color: #fff; }
@@ -109,7 +119,7 @@
         .text-center { text-align: center; }
         .font-bold { font-weight: bold; }
 
-        /* --- Table 1 Proportions --- */
+        /* --- Table 1 Proportions (Matches Table 2) --- */
         .col-t1-1 { width: 25%; } 
         .col-t1-2 { width: 25%; } 
         .col-t1-3 { width: 15%; }
@@ -119,21 +129,23 @@
         .image-column {
             text-align: center;
             vertical-align: middle;
-            padding: 10px;
+            padding: 5px;
         }
 
         .candidate-photo {
-            width: 110px; 
+            /* Photo shrinks with column */
+            width: 80%; 
+            max-width: 110px;
             height: auto; 
             display: block;
             margin: 0 auto;
             border: 1px solid #ddd; 
-            min-height: 110px; 
             background-color: #f9f9f9; 
         }
 
         .qr-code-img {
-            width: 160px; 
+            width: 90%; 
+            max-width: 160px;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -144,39 +156,28 @@
             display: flex;
             justify-content: space-between; 
             align-items: center;
-            font-size: 12px; 
+            font-size: clamp(10px, 1.2vw, 12px); 
             font-style: italic;
-            margin-top: 4px;
-            margin-bottom: 4px;
-            padding: 0 5px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            padding: 0 2px;
         }
 
         /* --- Table 2 Specifics --- */
-        .table-scores { 
-            margin-top: 0; 
-            margin-bottom: 0; 
-        }
-        
         .col-subject { width: 25%; } 
         .col-score { width: 75%; } 
 
-        .section-header { background-color: #fff; text-align: center; font-size: 16px; }
-        
-        .table-scores th { text-align: left; }
-        
         .score-cell { 
             text-align: left; 
-            padding-left: 10px; 
+            /* Matches standard cell padding */
+            padding-left: 0.5em; 
         }
-
-        .symbol-cell { text-align: center; font-weight: bold; width: 30px; }
-        .footnote-cell { font-size: 13px; font-style: italic; padding: 15px; border-top: 1px solid black; }
-        sup { font-size: 11px; }
 
         /* --- Footer Section --- */
         .footer-section { 
-            margin-top: 20px; 
-            margin-bottom: 300px; /* Kept huge gap */
+            margin-top: 15px; 
+            /* HUGE GAP at bottom */
+            margin-bottom: 300px; 
             color: #000; 
             flex-grow: 1; 
         }
@@ -185,27 +186,33 @@
             display: flex; 
             justify-content: space-between; 
             align-items: flex-end; 
-            margin-bottom: 30px; 
-            flex-wrap: wrap; 
-            gap: 20px; 
+            margin-bottom: 20px; 
         }
         
-        .date-text { font-weight: bold; font-size: 18px; }
-        .signature-block { text-align: center; padding-right: 30px; }
-        .signature-img { height: 70px; display: block; margin: 0 auto 10px auto; }
-        .director-text { font-weight: bold; font-size: 18px; }
+        .date-text { font-weight: bold; font-size: clamp(12px, 1.5vw, 18px); }
+        .signature-block { text-align: center; }
+        .signature-img { 
+            height: auto; 
+            max-height: 70px; 
+            display: block; 
+            margin: 0 auto 5px auto; 
+        }
+        .director-text { font-weight: bold; font-size: clamp(12px, 1.5vw, 18px); }
 
-        .notes-container { font-size: 14px; line-height: 1.6; }
-        .notes-container p { margin-bottom: 15px; }
+        .notes-container { 
+            font-size: clamp(11px, 1.3vw, 14px); 
+            line-height: 1.5; 
+        }
+        .notes-container p { margin-bottom: 10px; }
         .notes-list { list-style-type: none; padding-left: 0; }
-        .notes-list li { margin-bottom: 12px; display: flex; align-items: flex-start; }
-        .note-number { font-weight: bold; margin-right: 10px; min-width: 20px; }
+        .notes-list li { margin-bottom: 8px; display: flex; align-items: flex-start; }
+        .note-number { font-weight: bold; margin-right: 8px; min-width: 15px; }
         .note-text { flex: 1; }
 
-        .formula-container { text-align: center; margin: 20px 0; font-weight: bold; width: 100%; overflow-x: auto; }
+        .formula-container { text-align: center; margin: 15px 0; font-weight: bold; width: 100%; overflow-x: auto; }
         .formula-fraction { display: inline-block; text-align: center; vertical-align: middle; white-space: nowrap; }
-        .formula-top { border-bottom: 1px solid black; padding-bottom: 4px; display: block; }
-        .formula-bottom { padding-top: 4px; display: block; }
+        .formula-top { border-bottom: 1px solid black; padding-bottom: 2px; display: block; }
+        .formula-bottom { padding-top: 2px; display: block; }
 
         /* --- Bottom Banner --- */
         .bottom-banner {
@@ -217,45 +224,13 @@
             align-items: center;
             color: white;
             font-weight: bold;
-            font-size: 14px; 
+            font-size: clamp(10px, 1.2vw, 14px); 
             text-align: center;
-            padding: 25px;
-            line-height: 1.5;
-            min-height: 90px;
+            padding: 20px;
+            line-height: 1.4;
+            min-height: 80px;
         }
 
-        /* --- MOBILE SPECIFIC OVERRIDES --- */
-        @media only screen and (max-width: 768px) {
-            .full-width-container {
-                padding: 0 10px; /* Slightly less padding on small screens */
-            }
-
-            .banner {
-                flex-direction: column; /* Stack header elements */
-                gap: 15px;
-                text-align: center;
-            }
-
-            .banner-left, .banner-right {
-                width: 100%;
-                max-width: 100%;
-                justify-content: center; /* Center logos */
-            }
-
-            .banner-center h1 {
-                font-size: 18px; /* Slightly smaller text for mobile header */
-            }
-
-            .result-date-row {
-                flex-direction: column; /* Stack date and signature */
-                align-items: center;
-                text-align: center;
-            }
-
-            .signature-block {
-                padding-right: 0;
-            }
-        }
     </style>
 </head>
 <body>
@@ -279,103 +254,99 @@
 
         <div class="thick-blue-line-top"></div>
 
-        <div class="table-scroll-wrapper">
-            <table class="table-personal">
-                <colgroup>
-                    <col class="col-t1-1">
-                    <col class="col-t1-2">
-                    <col class="col-t1-3">
-                    <col class="col-t1-4">
-                    <col class="col-t1-5">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th>Application No.</th>
-                        <td>260311213549</td> 
-                        <th>Roll No.</th>
-                        <td>D08346879</td> 
-                        <td rowspan="3" class="image-column">
-                            <img src="jas.png" alt="Candidate Photo" class="candidate-photo"> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Candidate's Name</th>
-                        <td colspan="3" class="font-bold">JASHITH SHARMA</td> 
-                    </tr>
-                    <tr>
-                        <th>Mother's Name</th>
-                        <td colspan="3">RITU SHARMAS</td> 
-                    </tr>
-                    <tr>
-                        <th>Father's Name</th>
-                        <td colspan="3">YOGESH SHARMA</td> 
-                        <td rowspan="4" class="image-column" style="vertical-align: bottom;">
-                             <img src="QR..png" alt="QR Code" class="qr-code-img"> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Category</th>
-                        <td>GENERAL</td> 
-                        <th>Person with Disability(PwD)</th>
-                        <td>No</td> 
-                    </tr>
-                    <tr>
-                        <th>Gender</th>
-                        <td>Male</td> 
-                        <th>Date of Birth</th>
-                        <td>30-12-2008</td> 
-                    </tr>
-                    <tr>
-                        <th>State of Eligibility</th>
-                        <td>DELHI</td> 
-                        <th>Nationality</th>
-                        <td>Indian</td> 
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <colgroup>
+                <col class="col-t1-1">
+                <col class="col-t1-2">
+                <col class="col-t1-3">
+                <col class="col-t1-4">
+                <col class="col-t1-5">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>Application No.</th>
+                    <td>260311213549</td> 
+                    <th>Roll No.</th>
+                    <td>D08346879</td> 
+                    <td rowspan="3" class="image-column">
+                        <img src="jas.png" alt="Candidate Photo" class="candidate-photo"> 
+                    </td>
+                </tr>
+                <tr>
+                    <th>Candidate's Name</th>
+                    <td colspan="3" class="font-bold">JASHITH SHARMA</td> 
+                </tr>
+                <tr>
+                    <th>Mother's Name</th>
+                    <td colspan="3">RITU SHARMAS</td> 
+                </tr>
+                <tr>
+                    <th>Father's Name</th>
+                    <td colspan="3">YOGESH SHARMA</td> 
+                    <td rowspan="4" class="image-column" style="vertical-align: bottom;">
+                            <img src="QR..png" alt="QR Code" class="qr-code-img"> 
+                    </td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <td>GENERAL</td> 
+                    <th>Person with Disability(PwD)</th>
+                    <td>No</td> 
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>Male</td> 
+                    <th>Date of Birth</th>
+                    <td>30-12-2008</td> 
+                </tr>
+                <tr>
+                    <th>State of Eligibility</th>
+                    <td>DELHI</td> 
+                    <th>Nationality</th>
+                    <td>Indian</td> 
+                </tr>
+            </tbody>
+        </table>
         
         <div class="id-row">
             <span>NTA0837391</span> 
             <span>0EBC6D328CA34CV0B0A6927CB76BCB44</span> 
         </div>
         
-        <div class="table-scroll-wrapper">
-            <table class="table-scores">
-                <colgroup>
-                    <col class="col-subject">
-                    <col class="col-score">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th class="align-left">Subject</th>
-                        <th class="score-cell">NTA Score<sup>'1'</sup></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="font-bold">Physics</td>
-                        <td class="score-cell">98.6636086</td> 
-                    </tr>
-                    <tr>
-                        <td class="font-bold">Chemistry</td>
-                        <td class="score-cell">94.0762714</td> 
-                    </tr>
-                    <tr>
-                        <td class="font-bold">Mathematics</td>
-                        <td class="score-cell">99.1839231</td> 
-                    </tr>
-                    <tr>
-                        <td class="font-bold">Total</td>
-                        <td class="font-bold score-cell">99.3216501</td> 
-                    </tr>
-                    <tr>
-                        <th class="align-left" style="vertical-align: middle;">NTA Score in Words</th>
-                        <td class="score-cell"><strong>@</strong> Ninety Nine point Three Two One Six Five Zero One Only</td> 
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <colgroup>
+                <col class="col-subject">
+                <col class="col-score">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="align-left">Subject</th>
+                    <th class="score-cell">NTA Score<sup>'1'</sup></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="font-bold">Physics</td>
+                    <td class="score-cell">98.6636086</td> 
+                </tr>
+                <tr>
+                    <td class="font-bold">Chemistry</td>
+                    <td class="score-cell">94.0762714</td> 
+                </tr>
+                <tr>
+                    <td class="font-bold">Mathematics</td>
+                    <td class="score-cell">99.1839231</td> 
+                </tr>
+                <tr>
+                    <td class="font-bold">Total</td>
+                    <td class="font-bold score-cell">99.3216501</td> 
+                </tr>
+                <tr>
+                    <th class="align-left" style="vertical-align: middle;">NTA Score in Words</th>
+                    <td class="score-cell"><strong>@</strong> Ninety Nine point Three Two One Six Five Zero One Only</td> 
+                </tr>
+            </tbody>
+        </table>
 
         <div class="footer-section">
             <div class="result-date-row">
