@@ -19,23 +19,50 @@
             min-height: 100vh;
         }
 
-        .full-width-container { 
+        /* --- Full Width Sections (No Margins) --- */
+        header.banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px; /* Internal padding for logos */
+            min-height: 130px; 
+            flex-wrap: nowrap; 
+            width: 100%;
+        }
+
+        .thick-blue-line-top {
+            height: 24px;
+            background-color: #003153; 
+            width: 100%; 
+            margin-bottom: 35px;
+            margin-top: 10px;
+        }
+
+        .bottom-banner {
+            background-color: #003153; 
+            width: 100%;
+            margin-top: auto; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px; 
+            text-align: center;
+            padding: 25px;
+            line-height: 1.5;
+            min-height: 90px;
+        }
+
+        /* --- Centered Content Container (With Margins) --- */
+        .centered-content-wrapper { 
             width: 100%; 
             padding: 0 20px; 
             flex: 1;
             display: flex;
             flex-direction: column;
-        }
-
-        /* --- Header Banner --- */
-        .banner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            min-height: 130px; 
-            flex-wrap: nowrap; 
+            max-width: 1200px; /* Keeps the middle part centered with margins */
+            margin: 0 auto;
         }
 
         .banner-left, .banner-right {
@@ -67,15 +94,6 @@
             font-size: 22px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;
         }
         .banner-center p { font-size: 18px; font-weight: bold; }
-
-        /* --- Blue Line --- */
-        .thick-blue-line-top {
-            height: 24px;
-            background-color: #003153; 
-            width: 100%; 
-            margin-bottom: 35px;
-            margin-top: 10px;
-        }
 
         /* --- Scroll Wrapper for Phone --- */
         .table-scroll-wrapper {
@@ -172,7 +190,6 @@
         /* --- Footer Section --- */
         .footer-section { 
             margin-top: 20px; 
-            /* GAP DOUBLED HERE: 150px -> 300px */
             margin-bottom: 300px; 
             color: #000; 
             flex-grow: 1; 
@@ -204,29 +221,13 @@
         .formula-top { border-bottom: 1px solid black; padding-bottom: 4px; display: block; }
         .formula-bottom { padding-top: 4px; display: block; }
 
-        /* --- Bottom Banner --- */
-        .bottom-banner {
-            background-color: #003153; 
-            width: 100%;
-            margin-top: auto; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            font-size: 14px; 
-            text-align: center;
-            padding: 25px;
-            line-height: 1.5;
-            min-height: 90px;
-        }
-
         /* --- MOBILE OVERRIDES --- */
         @media only screen and (max-width: 768px) {
-            .banner {
+            header.banner {
                 flex-direction: column; 
                 gap: 15px;
                 height: auto; 
+                padding: 20px;
             }
             .banner-left, .banner-right {
                 width: 100%;
@@ -246,24 +247,25 @@
 </head>
 <body>
 
-    <div class="full-width-container">
-        <header class="banner">
-            <div class="banner-left">
-                <img src="MOD.png" alt="Left Banner" class="banner-image-fit"> 
-            </div>
-            
-            <div class="banner-center">
-                <h1>JOINT ENTRANCE EXAMINATION (MAIN) – 2026</h1> 
-                <p>Session 1 (JANUARY 2022)</p> 
-                <p>NTA SCORE-PAPER 1 (B.E./B.TECH)</p>
-            </div>
+    <header class="banner">
+        <div class="banner-left">
+            <img src="MOD.png" alt="Left Banner" class="banner-image-fit"> 
+        </div>
+        
+        <div class="banner-center">
+            <h1>JOINT ENTRANCE EXAMINATION (MAIN) – 2026</h1> 
+            <p>Session 1 (JANUARY 2022)</p> 
+            <p>NTA SCORE-PAPER 1 (B.E./B.TECH)</p>
+        </div>
 
-            <div class="banner-right">
-                <img src="NTA.png" alt="Right Banner" class="banner-image-fit"> 
-            </div>
-        </header>
+        <div class="banner-right">
+            <img src="NTA.png" alt="Right Banner" class="banner-image-fit"> 
+        </div>
+    </header>
 
-        <div class="thick-blue-line-top"></div>
+    <div class="thick-blue-line-top"></div>
+
+    <div class="centered-content-wrapper">
 
         <div class="table-scroll-wrapper">
             <table class="table-personal">
