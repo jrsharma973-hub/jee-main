@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Scorecard Mobile Fixed</title>
+    <title>NTA Scorecard Mobile Optimized</title>
     <style>
         /* --- Basic Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,7 +11,7 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #ffffff;
-            font-size: 14px; 
+            font-size: 16px; 
             color: #000;
             overflow-x: hidden; 
             display: flex;
@@ -19,7 +19,13 @@
             min-height: 100vh;
         }
 
-        .full-width-container { width: 100%; padding: 0 15px; flex: 1; }
+        .full-width-container { 
+            width: 100%; 
+            padding: 0 15px; 
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
         /* --- Header Banner --- */
         .banner {
@@ -29,20 +35,22 @@
             padding-top: 20px;
             padding-bottom: 20px;
             min-height: 130px; 
-            flex-wrap: wrap; /* Allows stacking on mobile */
+            /* Allows wrapping on mobile so it stacks nicely */
+            flex-wrap: wrap; 
         }
 
         .banner-left, .banner-right {
             display: flex;
             align-items: center;
-            width: 28%; 
-            height: 100%; 
+            flex: 0 0 auto;
+            width: auto;
+            max-width: 30%;
         }
         
         .banner-image-fit {
-            max-height: 85px; 
+            max-height: 90px; 
             width: auto;      
-            max-width: 100%; /* Prevents overflow on mobile */
+            max-width: 100%; 
             display: block;
             background-color: #f0f0f0; 
         }
@@ -51,15 +59,15 @@
 
         .banner-center {
             text-align: center;
-            flex-grow: 1;
-            padding: 0 10px;
+            flex: 1; 
+            padding: 0 15px;
             min-width: 200px; /* Ensures text doesn't get crushed */
         }
 
         .banner-center h1 {
-            font-size: 20px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;
+            font-size: 22px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;
         }
-        .banner-center p { font-size: 16px; font-weight: bold; }
+        .banner-center p { font-size: 18px; font-weight: bold; }
 
         /* --- Blue Line --- */
         .thick-blue-line-top {
@@ -70,30 +78,30 @@
             margin-top: 10px;
         }
 
-        /* --- Scroll Wrapper for Tables --- */
-        /* This prevents distortion by allowing the table to stay wide and scroll */
+        /* --- Scroll Wrapper for Phone --- */
+        /* This is crucial for mobile: lets table scroll sideways without breaking layout */
         .table-scroll-wrapper {
             width: 100%;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
-            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 0; 
         }
 
         /* --- Tables --- */
         table {
             width: 100%;
-            /* Force a minimum width so tables don't squish on phones */
-            min-width: 700px; 
+            /* Forces table to keep its shape on phone (user scrolls sideways) */
+            min-width: 800px; 
             border-collapse: collapse;
             border: 2px solid black;
+            table-layout: fixed; 
         }
 
         th, td {
             border: 1px solid black;
-            padding: 10px 12px; 
+            padding: 12px 10px; 
             text-align: left;
             vertical-align: middle;
-            font-size: 14px;
         }
 
         th { font-weight: bold; background-color: #fff; }
@@ -101,71 +109,93 @@
         .text-center { text-align: center; }
         .font-bold { font-weight: bold; }
 
-        /* --- Table 1 Specifics --- */
-        .table-personal { margin-bottom: 0; }
-        .table-personal th { width: 15%; min-width: 140px; } 
-        
+        /* --- Table 1 Proportions --- */
+        .col-t1-1 { width: 25%; } 
+        .col-t1-2 { width: 25%; } 
+        .col-t1-3 { width: 15%; }
+        .col-t1-4 { width: 15%; }
+        .col-t1-5 { width: 20%; }
+
         .image-column {
-            width: 20%; 
-            min-width: 160px;
             text-align: center;
             vertical-align: middle;
             padding: 10px;
         }
 
-        /* Candidate Photo */
         .candidate-photo {
-            width: 100px; 
+            width: 110px; 
             height: auto; 
             display: block;
             margin: 0 auto;
             border: 1px solid #ddd; 
-            min-height: 100px; 
+            min-height: 110px; 
             background-color: #f9f9f9; 
         }
 
         .qr-code-img {
-            width: 140px; 
+            width: 160px; 
             height: auto;
             display: block;
             margin: 0 auto;
         }
 
-        .table-id-text {
-            text-align: right;
-            font-size: 11px;
+        /* --- ID ROW --- */
+        .id-row {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            font-size: 12px; 
             font-style: italic;
-            margin-top: 2px;
-            margin-bottom: 5px;
-            padding-right: 5px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            padding: 0 5px;
         }
 
         /* --- Table 2 Specifics --- */
-        .table-scores { table-layout: fixed; margin-bottom: 40px; }
-        .section-header { width: 33.3333%; background-color: #fff; text-align: center; font-size: 15px; }
-        .table-scores th { text-align: center; }
-        .symbol-cell { text-align: center; font-weight: bold; width: 40px; }
-        .footnote-cell { font-size: 12px; font-style: italic; padding: 15px; border-top: 1px solid black; }
-        sup { font-size: 10px; }
+        .table-scores { 
+            margin-top: 0; 
+            margin-bottom: 0; 
+        }
+        
+        .col-subject { width: 25%; } 
+        .col-score { width: 75%; } 
 
-        /* --- Footer --- */
-        .footer-section { margin-top: 20px; margin-bottom: 100px; color: #000; }
+        .section-header { background-color: #fff; text-align: center; font-size: 16px; }
+        
+        .table-scores th { text-align: left; }
+        
+        .score-cell { 
+            text-align: left; 
+            padding-left: 10px; 
+        }
+
+        .symbol-cell { text-align: center; font-weight: bold; width: 30px; }
+        .footnote-cell { font-size: 13px; font-style: italic; padding: 15px; border-top: 1px solid black; }
+        sup { font-size: 11px; }
+
+        /* --- Footer Section --- */
+        .footer-section { 
+            margin-top: 20px; 
+            margin-bottom: 300px; /* Kept huge gap */
+            color: #000; 
+            flex-grow: 1; 
+        }
         
         .result-date-row { 
             display: flex; 
             justify-content: space-between; 
             align-items: flex-end; 
             margin-bottom: 30px; 
-            flex-wrap: wrap; /* Stack on mobile */
-            gap: 20px;
+            flex-wrap: wrap; 
+            gap: 20px; 
         }
         
-        .date-text { font-weight: bold; font-size: 16px; }
+        .date-text { font-weight: bold; font-size: 18px; }
         .signature-block { text-align: center; padding-right: 30px; }
-        .signature-img { height: 60px; display: block; margin: 0 auto 10px auto; }
-        .director-text { font-weight: bold; font-size: 16px; }
+        .signature-img { height: 70px; display: block; margin: 0 auto 10px auto; }
+        .director-text { font-weight: bold; font-size: 18px; }
 
-        .notes-container { font-size: 13px; line-height: 1.6; }
+        .notes-container { font-size: 14px; line-height: 1.6; }
         .notes-container p { margin-bottom: 15px; }
         .notes-list { list-style-type: none; padding-left: 0; }
         .notes-list li { margin-bottom: 12px; display: flex; align-items: flex-start; }
@@ -187,34 +217,43 @@
             align-items: center;
             color: white;
             font-weight: bold;
-            font-size: 13px; 
+            font-size: 14px; 
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             line-height: 1.5;
-            min-height: 84px; /* Allows growth if text wraps */
+            min-height: 90px;
         }
 
-        /* ================= MOBILE SPECIFIC OVERRIDES ================= */
+        /* --- MOBILE SPECIFIC OVERRIDES --- */
         @media only screen and (max-width: 768px) {
-            .banner {
-                flex-direction: column;
-                gap: 15px;
+            .full-width-container {
+                padding: 0 10px; /* Slightly less padding on small screens */
             }
+
+            .banner {
+                flex-direction: column; /* Stack header elements */
+                gap: 15px;
+                text-align: center;
+            }
+
             .banner-left, .banner-right {
                 width: 100%;
-                justify-content: center;
+                max-width: 100%;
+                justify-content: center; /* Center logos */
             }
-            .banner-center {
-                width: 100%;
+
+            .banner-center h1 {
+                font-size: 18px; /* Slightly smaller text for mobile header */
             }
-            .signature-block {
-                padding-right: 0;
-                width: 100%;
-            }
+
             .result-date-row {
-                flex-direction: column;
+                flex-direction: column; /* Stack date and signature */
                 align-items: center;
                 text-align: center;
+            }
+
+            .signature-block {
+                padding-right: 0;
             }
         }
     </style>
@@ -224,149 +263,115 @@
     <div class="full-width-container">
         <header class="banner">
             <div class="banner-left">
-                <img src="path/to/left_banner.png" alt="Left Banner" class="banner-image-fit">
+                <img src="MOD.png" alt="Left Banner" class="banner-image-fit"> 
             </div>
             
             <div class="banner-center">
-                <h1>JOINT ENTRANCE EXAMINATION (MAIN) – 2022</h1>
-                <p>Session 1 (JUNE 2022)</p>
-                <p>NTA SCORE</p>
+                <h1>JOINT ENTRANCE EXAMINATION (MAIN) – 2026</h1> 
+                <p>Session 1 (JANUARY 2022)</p> 
+                <p>NTA SCORE-PAPER 1 (B.E./B.TECH)</p>
             </div>
 
             <div class="banner-right">
-                <img src="path/to/right_banner.png" alt="Right Banner" class="banner-image-fit">
+                <img src="NTA.png" alt="Right Banner" class="banner-image-fit"> 
             </div>
         </header>
-    </div>
 
-    <div class="thick-blue-line-top"></div>
+        <div class="thick-blue-line-top"></div>
 
-    <div class="full-width-container">
-        
         <div class="table-scroll-wrapper">
             <table class="table-personal">
+                <colgroup>
+                    <col class="col-t1-1">
+                    <col class="col-t1-2">
+                    <col class="col-t1-3">
+                    <col class="col-t1-4">
+                    <col class="col-t1-5">
+                </colgroup>
                 <tbody>
                     <tr>
                         <th>Application No.</th>
-                        <td>220310347364</td>
+                        <td>260311213549</td> 
                         <th>Roll No.</th>
-                        <td>UP12006879</td>
+                        <td>D08346879</td> 
                         <td rowspan="3" class="image-column">
-                            <img src="path/to/candidate_photo.jpg" alt="Candidate Photo" class="candidate-photo">
+                            <img src="jas.png" alt="Candidate Photo" class="candidate-photo"> 
                         </td>
                     </tr>
                     <tr>
                         <th>Candidate's Name</th>
-                        <td colspan="3" class="font-bold">ANWAR AFTAB ANSARI</td>
+                        <td colspan="3" class="font-bold">JASHITH SHARMA</td> 
                     </tr>
                     <tr>
                         <th>Mother's Name</th>
-                        <td colspan="3">RABIA BANO</td>
+                        <td colspan="3">RITU SHARMAS</td> 
                     </tr>
                     <tr>
                         <th>Father's Name</th>
-                        <td colspan="3">MOHD ASLAM ANSARI</td>
+                        <td colspan="3">YOGESH SHARMA</td> 
                         <td rowspan="4" class="image-column" style="vertical-align: bottom;">
-                            <img src="path/to/qr_code.png" alt="QR Code" class="qr-code-img">
+                             <img src="QR..png" alt="QR Code" class="qr-code-img"> 
                         </td>
                     </tr>
                     <tr>
                         <th>Category</th>
-                        <td>OBC- NCL</td>
+                        <td>GENERAL</td> 
                         <th>Person with Disability(PwD)</th>
-                        <td>No</td>
+                        <td>No</td> 
                     </tr>
                     <tr>
                         <th>Gender</th>
-                        <td>Male</td>
+                        <td>Male</td> 
                         <th>Date of Birth</th>
-                        <td>04-12-2003</td>
+                        <td>30-12-2008</td> 
                     </tr>
                     <tr>
                         <th>State of Eligibility</th>
-                        <td>UTTAR PRADESH</td>
+                        <td>DELHI</td> 
                         <th>Nationality</th>
-                        <td>Indian</td>
+                        <td>Indian</td> 
                     </tr>
                 </tbody>
             </table>
         </div>
         
-        <div class="table-id-text">0EBC5D328CA32C00B0BCA27CB76BCB44</div>
-
+        <div class="id-row">
+            <span>NTA0837391</span> 
+            <span>0EBC6D328CA34CV0B0A6927CB76BCB44</span> 
+        </div>
+        
         <div class="table-scroll-wrapper">
             <table class="table-scores">
+                <colgroup>
+                    <col class="col-subject">
+                    <col class="col-score">
+                </colgroup>
                 <thead>
                     <tr>
-                        <th colspan="2" class="section-header">Paper 1 (B.E./B Tech.) @</th>
-                        <th colspan="2" class="section-header">Paper 2A (B. Arch.) #</th>
-                        <th colspan="2" class="section-header">Paper 2B (B. Planning) $</th>
-                    </tr>
-                    <tr>
                         <th class="align-left">Subject</th>
-                        <th>NTA Score<sup>'1'</sup></th>
-                        <th class="align-left">Subject</th>
-                        <th>NTA Score<sup>'1'</sup></th>
-                        <th class="align-left">Subject</th>
-                        <th>NTA Score<sup>'1'</sup></th>
+                        <th class="score-cell">NTA Score<sup>'1'</sup></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="font-bold">Physics</td>
-                        <td class="text-center">79.6636086</td>
-                        <td class="font-bold">Mathematics *</td>
-                        <td class="text-center">----------</td>
-                        <td class="font-bold">Mathematics *</td>
-                        <td class="text-center">----------</td>
+                        <td class="score-cell">98.6636086</td> 
                     </tr>
                     <tr>
                         <td class="font-bold">Chemistry</td>
-                        <td class="text-center">24.0981714</td>
-                        <td class="font-bold">Aptitude Test *</td>
-                        <td class="text-center">----------</td>
-                        <td class="font-bold">Aptitude Test *</td>
-                        <td class="text-center">----------</td>
+                        <td class="score-cell">94.0762714</td> 
                     </tr>
                     <tr>
                         <td class="font-bold">Mathematics</td>
-                        <td class="text-center">86.1839231</td>
-                        <td class="font-bold">Drawing Test</td>
-                        <td class="text-center">----------</td>
-                        <td class="font-bold" rowspan="2" style="vertical-align: top;">Planning Based Questions</td>
-                        <td class="text-center" rowspan="2" style="vertical-align: top;">----------</td>
-                    </tr>
-                    <tr>
-                        <td style="border-top: none; border-bottom: none;"></td>
-                        <td style="border-top: none; border-bottom: none;"></td>
-                        <td style="border-top: none; border-bottom: none;"></td>
-                        <td style="border-top: none; border-bottom: none;"></td>
+                        <td class="score-cell">99.1839231</td> 
                     </tr>
                     <tr>
                         <td class="font-bold">Total</td>
-                        <td class="font-bold text-center">69.7216501</td>
-                        <td class="font-bold">Total</td>
-                        <td class="text-center">----------</td>
-                        <td class="font-bold">Total</td>
-                        <td class="text-center">----------</td>
+                        <td class="font-bold score-cell">99.3216501</td> 
                     </tr>
                     <tr>
-                        <th rowspan="3" class="align-left" style="vertical-align: middle;">NTA Score in Words</th>
-                        <td class="symbol-cell">@</td>
-                        <td colspan="4">Sixty Nine point Seven Two One Six Five Zero One Only</td>
-                    </tr>
-                    <tr>
-                        <td class="symbol-cell">#</td>
-                        <td colspan="4">----------</td>
-                    </tr>
-                    <tr>
-                        <td class="symbol-cell">$</td>
-                        <td colspan="4">----------</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="footnote-cell">
-                            '*' NTA Scores of same subject but under different groups, like B. Arch and B Planning, may differ as number of candidates appeared in two groups may be different.
-                        </td>
+                        <th class="align-left" style="vertical-align: middle;">NTA Score in Words</th>
+                        <td class="score-cell"><strong>@</strong> Ninety Nine point Three Two One Six Five Zero One Only</td> 
                     </tr>
                 </tbody>
             </table>
@@ -374,9 +379,9 @@
 
         <div class="footer-section">
             <div class="result-date-row">
-                <div class="date-text">Date of declaration of result : 10.07.2022</div>
+                <div class="date-text">Date of declaration of result : 10.07.2022</div> 
                 <div class="signature-block">
-                    <img src="path/to/signature.png" alt="Signature" class="signature-img">
+                    <img src="sig.png" alt="Signature" class="signature-img"> 
                     <div class="director-text">Senior Director, NTA</div>
                 </div>
             </div>
@@ -401,7 +406,6 @@
                 </ul>
             </div>
         </div>
-
     </div>
 
     <div class="bottom-banner">
